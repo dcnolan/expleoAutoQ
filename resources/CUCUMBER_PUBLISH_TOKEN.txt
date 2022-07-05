@@ -1,0 +1,3 @@
+CUCUMBER_PUBLISH_TOKEN=f6fef2d1-ee23-4bd7-8cc4-22390eafb6f9
+
+https://reports.cucumber.io/report-collections/db9c5a4a-cc04-4149-9fdb-b8ed67a2217f

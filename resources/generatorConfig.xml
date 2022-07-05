@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--Generator  configs for EDMS-->
+<generatorConfiguration>
+  <classPathEntry
+    location="C:/Users/pradeep.kuppuchetty/.m2/repository/com/oracle/weblogic/ojdbc7/12.1.3-0-0/ojdbc7-12.1.3-0-0.jar"/>
+
+  <context id="EdmsOracleTables" targetRuntime="MyBatis3">
+    <jdbcConnection
+      connectionURL="jdbc:oracle:thin:@//sdbahpocm01-db.agriculture.gov.ie:1532/UATC.agriculture.gov.ie"
+      driverClass="oracle.jdbc.driver.OracleDriver"
+      password="EDMS_DATA" userId="EDMS_DATA">
+    </jdbcConnection>
+
+    <!--jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+                    connectionURL="jdbc:oracle:thin:@//sdbahpocm01-db.agriculture.gov.ie:1532/DEVC.agriculture.gov.ie"
+                    userId="lpis_metadata" password="lpis_metadata">
+    </jdbcConnection-->
+
+    <!--jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+      connectionURL="jdbc:oracle:thin:@//sdbahpocm01-db.agriculture.gov.ie:1532/npss.agriculture.gov.ie"
+      userId="imap_scan_doc" password="imap_scan_doc">
+    </jdbcConnection-->
+
+    <!--  <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+        connectionURL="jdbc:oracle:thin:@//sdbahpocm01-db.agriculture.gov.ie:1532/devc.agriculture.gov.ie"
+        userId="imap_vector" password="imap_vector">
+      </jdbcConnection>-->
+
+    <javaTypeResolver>
+      <property name="forceBigDecimals" value="false"/>
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="ie.gov.agriculture.edms.dao"
+      targetProject="src/test/java">
+      <property name="enableSubPackages" value="false"/>
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="."
+      targetProject="resources/XmlMappers">
+      <property name="enableSubPackages" value="false"/>
+    </sqlMapGenerator>
+    <javaClientGenerator targetPackage="ie.gov.agriculture.edms.dao"
+      targetProject="src/test/java"
+      type="XMLMAPPER">
+      <property name="enableSubPackages" value="false"/>
+    </javaClientGenerator>
+    <table domainObjectName="TDED_HOLDINGS"
+      tableName="TDED_HOLDINGS">
+      <property name="useActualColumnNames" value="true"/>
+    </table>
+    
+      <!--<ignoreColumn column="BGF_AUDIT_ACTION"/>
+      <ignoreColumn column="BGF_AUDIT_DATE"/>
+      <ignoreColumn column="BGF_AUDIT_LOCATION"/>
+      <ignoreColumn column="BGF_VER_NUM"/>-->
+    <!-- <table schema="lpis_vector" tableName="TDLP_ESB_BUFFER"  -->
+    <!--     domainObjectName="ESB_BUFFER">  -->
+    <!--     <property name="useActualColumnNames" value="true"/>  -->
+    <!-- </table>     -->
+    <!--<table schema="lpis_vector" tableName="tdlp_project_sub_feature"-->
+    <!--domainObjectName="ProjectFeature">-->
+    <!--<property name="useActualColumnNames" value="true"/>-->
+    <!--</table>-->
+    <!--<table schema="lpis_vector" tableName="tdlp_project_parcel_hist"-->
+    <!--domainObjectName="ProjectParcelHistory">-->
+    <!--<property name="useActualColumnNames" value="true"/>-->
+    <!--</table>-->
+    <!--<table schema="lpis_vector" tableName="tdlp_project_sub_feature_hist"-->
+    <!--domainObjectName="ProjectFeatureHistory">-->
+    <!--<property name="useActualColumnNames" value="true"/>-->
+    <!--</table>-->
+    <!-- <table schema="imap_scan_doc" tableName="TDLM_PRINT_IMG"
+       domainObjectName="PrintImg">
+       <property name="useActualColumnNames" value="true"/>
+     </table>-->
+  </context>
+</generatorConfiguration>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level - %msg%n"/> -->
+            <PatternLayout pattern="%C{5} %-5level - %msg%n"/>
+        </Console>
+        <File name="MyFile" fileName="errors.log" immediateFlush="true" append="true">
+            <PatternLayout pattern="%C{5} %d{yyyy-MM-dd HH:mm} %-5level - %msg%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.atlassian.jira.rest.client.internal.async.AsynchronousHttpClientFactory$MavenUtils" level="OFF"/>
+        <Root level="debug">
+            <AppenderRef ref="Console" level="debug"/>
+            <AppenderRef ref="MyFile" level="debug"/>
+        </Root>
+    </Loggers>
+</Configuration>
