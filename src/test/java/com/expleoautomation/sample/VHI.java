@@ -4,26 +4,25 @@ import org.openqa.selenium.By;
 
 import com.codeborne.selenide.selector.ByShadow;
 import com.expleoautomation.commons.ConstantsProvider;
-import com.expleoautomation.pom.northerntrust.HomeScreen;
 import com.expleoautomation.utils.WebUI;
 
 public class VHI {
 
 	public String windowHandle = null;
 
-	public HomeScreen login(String uid, String pwd) {
+	public VhiHomePage login(String uid, String pwd) {
 		userId(uid);
 		password(pwd);
 		return login();
 	}
 
-	public HomeScreen open(String windowHandle) {
+	public VhiHomePage open(String windowHandle) {
 		WebUI.switchTab(windowHandle);
-		return new HomeScreen();
+		return new VhiHomePage();
 	}
 
 
-	public HomeScreen open(String uid, String pwd) {
+	public VhiHomePage open(String uid, String pwd) {
 		open();
 		userId(uid);
 		password(pwd);
@@ -44,8 +43,8 @@ public class VHI {
 		WebUI.set(ByShadow.cssSelector("input[name='password']", "app-login"), value);
 	}
 
-	public HomeScreen login() {
+	public VhiHomePage login() {
 		WebUI.click(ByShadow.cssSelector("#loginbutton", "app-login"));
-		return new HomeScreen();
+		return new VhiHomePage();
 	}
 }

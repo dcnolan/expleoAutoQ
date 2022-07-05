@@ -72,12 +72,8 @@ public class VhiTravelPage {
 	}
 
 	public VhiTravelQuote GetQuote() {
-		log.debug("GetQuote() b4 ");
 		WebUI.click(By.cssSelector("#getCovered"));
-		log.debug("GetQuote() after ");
-		VhiTravelQuote v = new VhiTravelQuote();
-		log.debug("GetQuote() return ");
-		return v;
+		return new VhiTravelQuote();
 	}
 
 

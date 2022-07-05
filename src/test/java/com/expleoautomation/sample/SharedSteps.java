@@ -18,14 +18,7 @@ import org.openqa.selenium.TakesScreenshot;
 
 import com.codeborne.selenide.Configuration;
 import com.expleoautomation.commons.Behaviour;
-import com.expleoautomation.commons.ConstantsNames;
 import com.expleoautomation.commons.StaticData;
-import com.expleoautomation.pom.northerntrust.ErrorMsg;
-import com.expleoautomation.pom.northerntrust.Footer;
-import com.expleoautomation.pom.northerntrust.MultifondsMenu;
-import com.expleoautomation.pom.northerntrust.PopUp;
-import com.expleoautomation.stepdefinitions.StaticDataSteps;
-import com.expleoautomation.stepdefinitions.UiSteps;
 import com.expleoautomation.utils.DatabaseUtils;
 import com.expleoautomation.utils.WebUI;
 
@@ -100,8 +93,7 @@ public class SharedSteps {
 	public void clearDataBetweenTests(Scenario scenario){
 
 		// clear property bag
-		StaticDataSteps.properties.clear();
-		UiSteps.properties.clear();
+		Steps.properties.clear();
 		StaticData.keyValueReport.clear();
 		// preserve UiSteps.browserTabs to leave tabs open 
 

@@ -198,14 +198,14 @@ public class Excel {
     {
         try
         {
-            FileInputStream file = new FileInputStream(new File("C:\\Users\\DN137\\Documents\\Agueda\\RAD.JAD _Nutrimenta REGISTERS DATA Mapping.xlsx"));
+            FileInputStream file = new FileInputStream(new File("C:\\myExcel.xlsx"));
  
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);
  
             //Get first/desired sheet from the workbook
             //XSSFSheet sheet = workbook.getSheetAt(0);
-            XSSFSheet sheet = workbook.getSheet("HT.Diamon Diversified Fund");
+            XSSFSheet sheet = workbook.getSheet("Sheet1");
             System.out.println(sheet.getSheetName());
             System.out.println("");
             

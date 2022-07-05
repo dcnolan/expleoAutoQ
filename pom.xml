@@ -8,10 +8,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	
 	 <repositories>
+	 
 	    <repository>
 	      <id>central</id>
 	      <name></name>
-	      <url>https://repository.ntrs.com:8444/nexus/content/repositories/central</url>
+	      <!--  <url>https://repository.ntrs.com:8444/nexus/content/repositories/central</url> -->
+	      <url>https://repo1.maven.org/maven2</url>
 	    </repository>
 	  </repositories>
 	  
@@ -19,12 +21,15 @@
 	    <pluginRepository>
 	      <id>central</id>
 	      <name></name>
-	      <url>https://repository.ntrs.com:8444/nexus/content/repositories/central</url>
+	      <!--  <url>https://repository.ntrs.com:8444/nexus/content/repositories/central</url>
+	      <url>https://mvnrepository.com/repos/central</url> -->
+	      <url>https://repo1.maven.org/maven2</url>
 	    </pluginRepository>
 	  </pluginRepositories>
   
 	<profiles>
 		
+<!-- actual configs here
 		<profile>
 			<id>dev</id>
 			<activation>
@@ -54,11 +59,11 @@
 				<env>sit</env>
 			</properties>
 		</profile>
-		
+-->		
 		<profile>
 			<id>sample</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<env>sample</env>
@@ -168,7 +173,7 @@
 						
 
 		
-
+<!-- REMOVED DURING IMPORT TO EXPLEO -->
 		     <plugin>
 		        <groupId>net.masterthought</groupId>
 		        <artifactId>maven-cucumber-reporting</artifactId>
@@ -195,14 +200,6 @@
 		        </executions>
 	        </plugin>
 
-
-
-
-			<plugin>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<groupId>org.apache.maven.plugins</groupId>
-				<version>2.10.4</version>
-			</plugin>
 			
 			
 			<plugin>
@@ -217,7 +214,15 @@
 		          
 		        </configuration>
 		     </plugin>
-			
+
+
+
+
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<version>2.10.4</version>
+			</plugin>
 			
 			<plugin>
 				<groupId>io.qameta.allure</groupId>
@@ -475,12 +480,14 @@
 		</dependency>
 		
 		
-	    <dependency>
-	        <groupId>org.projectlombok</groupId>
-	        <artifactId>lombok</artifactId>
-	        <version>1.18.22</version>
-	        <scope>provided</scope>
-	    </dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok --> 
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.24</version>
+		    <scope>provided</scope>
+		</dependency>
 		
 
 

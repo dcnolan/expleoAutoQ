@@ -7,15 +7,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
-
+import com.expleoautomation.utils.ApiUtils;
 import com.expleoautomation.utils.DatabaseUtils;
 import com.expleoautomation.utils.Excel;
 import com.expleoautomation.utils.ResourceMap;
-import com.expleoautomation.utils.ServiceLayerUtils;
 import com.expleoautomation.utils.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,7 +44,7 @@ class ApiBase extends reflectionBase {
 	public String post() {
 
 		// execute POST request
-		Response result = ServiceLayerUtils.post(getResource(), toJson(true));
+		Response result = ApiUtils.post(getResource(), toJson(true));
 
 		// re-create this object from response data - including unique record keys (for possible delete later)
 		fromResponse(result);
@@ -76,7 +74,7 @@ class ApiBase extends reflectionBase {
 	public String put() {
 
 		// execute POST request
-		Response result = ServiceLayerUtils.put(getResource(), toJson(true));
+		Response result = ApiUtils.put(getResource(), toJson(true));
 
 		// re-create this object from response data - including unique record keys (for
 		// possible delete later)
@@ -90,14 +88,14 @@ class ApiBase extends reflectionBase {
 	// execute GET api method
 	public String get() {
 		// untested
-		Response result = new ServiceLayerUtils().get(getResource());
+		Response result = ApiUtils.get(getResource());
 		return result.getStatusLine();
 	}
 	// get SWAGGER doc
 	public void swagger() {
 		String apiName = getApiName();
 		String swaggerUrl = "meta/swaggers/multifonds-gi-" + apiName + "-screen-swagger-v1.0.0.json";
-		new ServiceLayerUtils().get(swaggerUrl);
+		ApiUtils.get(swaggerUrl);
 	}
 
 	
@@ -112,7 +110,7 @@ class ApiBase extends reflectionBase {
 	public String deleteByResource(String resource, boolean includeBodyWithRequest) {	
 		// delete
 		String body = (includeBodyWithRequest ? toJson(true) : "");
-		Response result = new ServiceLayerUtils().delete(resource, body);
+		Response result = ApiUtils.delete(resource, body);
 		// check DB
 		int rowCount = DatabaseUtils.select(this.getSelectSQL());
 		String msg = "AssertDelete(): API data has NOT been removed form the database";

@@ -2,15 +2,12 @@ package com.expleoautomation.utils;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.Assert;
-
 import com.expleoautomation.commons.Behaviour;
-import com.expleoautomation.pom.northerntrust.ManagementFeeReallocationToPartner;
+
 
 public class ResourceMap {
 

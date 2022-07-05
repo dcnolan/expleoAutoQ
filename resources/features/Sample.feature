@@ -49,37 +49,13 @@ Scenario: Place ORDER with simpleKart (datatable)
 Scenario: Open a sample WEB page
      Given I have access to VHI
      When  I can request a quote for travel insurance
-     Then  I am quoted for premium of "€ 45.00"
-     
-     
-
+     Then  I am quoted for premium of "€ 54.00"
+         
 
 
 @Database
 Scenario: Database Query
     Given I can query the database																									 
-																											 
-      
-@Post @Delete
-Scenario: Authenticate, post & delete
-    Given I have access to Multifonds 																															 
-    When  I create a default ExchangeGroup 
-    And   Delete ExchangeGroup record		
-    
-@Verify
-Scenario: Authenticate, post, delete & verify
-    Given I have access to Multifonds																				 
-    When  I create a default ExchangeGroup 
-    Then  I can match these parameters with a record in the database																										 
-    And   Delete ExchangeGroup record		
-        
-
-    
-
-@4-eyesLogin @Web
-Scenario: web login (4-eyes)
-    Given I switch user account for four-eyes validation
-    Then  I will close all screens    
 
 
     

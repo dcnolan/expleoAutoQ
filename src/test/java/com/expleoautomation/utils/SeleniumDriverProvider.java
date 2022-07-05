@@ -1,3 +1,6 @@
+
+/* NB - deprecated, here for reference */
+
 package com.expleoautomation.utils;
 
 import java.io.File;
@@ -29,6 +32,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.openqa.selenium.support.events.WebDriverEventListener;
 
 import com.expleoautomation.commons.ConstantsProvider;
 import com.google.common.base.Strings;
@@ -66,7 +70,7 @@ public class SeleniumDriverProvider {
         }
         EventFiringWebDriver eventFiringWebDriver = new EventFiringWebDriver(webDriver);
         WebEventListener eventListener = new WebEventListener();
-        eventFiringWebDriver.register(eventListener);
+        eventFiringWebDriver.register((WebDriverEventListener) eventListener);
         webDriver.manage().timeouts().implicitlyWait(ConstantsProvider.getGLOBAL_TIMEOUT(), TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
         this.webDriver = webDriver;

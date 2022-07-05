@@ -1,9 +1,6 @@
 package com.expleoautomation.utils;
 
 import static com.codeborne.selenide.Selenide.*;
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
@@ -26,7 +23,7 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.TimeoutException;
 import com.expleoautomation.commons.ConstantsProvider;
-import com.expleoautomation.stepdefinitions.UiSteps;
+import com.expleoautomation.sample.Steps;
 
 import lombok.extern.log4j.Log4j2;
 import static com.codeborne.selenide.Condition.*;
@@ -196,11 +193,8 @@ public class WebUI {
 				
 			// <mat-select/>
 			} else if (elementType.equals("mat-select")) {
-				log.info("   * _set(): 4");
 				setMatSelect(element, value, exactMatch);
-				log.info("   * _set(): 5");
 				actualValue = _get(element); //.getText().trim();
-				log.info("   * _set(): 6");
 				
 			}
 			else if (elementType.equals("select")) {
@@ -304,20 +298,15 @@ public class WebUI {
 
 	private static String setMatSelect(SelenideElement element, String value, boolean exactMatch) {
 		
-		log.info("   * setMatSelect(): 1");
 		// some elements can be hidden by the top-menu after scrollIntoView(), so scroll down a bit so it can be clicked
 		scrollIntoView(element);
 
 		// click to expand drop-down if necessary
 		boolean expanded = isNull(element.getAttribute("aria-expanded"), false);
-		if (expanded) {
-			int a = 0;
-		}
 		if (!expanded) {
 			element.pressEnter(); //click();
 			element.shouldBe(attribute("aria-expanded", "true"));
 		}
-		log.info("   * setMatSelect(): 2");
 		
 		// get list of items
 		String bySelectorOptionPanel = String.format("#%s", element.getAttribute("aria-controls"));
@@ -326,27 +315,25 @@ public class WebUI {
 		ElementsCollection selectorOptions = selectorOptionPanel.$$(By.cssSelector("mat-option"));
 		selectorOptions.shouldHave(CollectionCondition.sizeGreaterThan(0));
 		
-		log.info("   * setMatSelect(): 3");
-		
 		// loop through items
 		Iterable<SelenideElement> optionsList = selectorOptions.asFixedIterable();
 		for (SelenideElement option : optionsList) {
 			option.should(exist);
-			log.info("   * setMatSelect(): 4");
+
 			// get value BEFORE click to avoid StaleElementReferenceException:
 			// once clicked, the list elements will disappear 
 			String itemValue = option.innerText().trim();
 		
 			// matching?
 			if (exactMatch ? itemValue.equals(value) : itemValue.startsWith(value)) {
-				log.info("   * setMatSelect(): 5");
+
 				// select
 				option.click(); //.pressEnter();
 				
 				// wait till closed
 				//String expanded1 = element.getAttribute("aria-expanded"); 
 				//element.shouldBe(attribute("aria-expanded", "false"));
-				log.info("   * setMatSelect(): 6");
+
 				// return matched value
 				return itemValue.trim();
 			}
@@ -403,7 +390,7 @@ public class WebUI {
 		String value = _get(element);
 
 		// log
-		log.debug("get(): " + getCallingPropertyName() + " '" + value + "'");
+		log.info("get(): " + getCallingPropertyName() + " '" + value + "'");
 
 		// return
 		return value;
@@ -719,7 +706,6 @@ public class WebUI {
 		// get selenide web driver
 		WebDriver webDriver = webDriver();
 		if (!webDriver.getCurrentUrl().contains(urlContains)) {
-
 			
 			// define "wait"
 			WebDriverWait wait = new WebDriverWait(webDriver, timeout, polling);
@@ -731,27 +717,14 @@ public class WebUI {
 			// execute "wait"		
 			try {
 				wait.until(ExpectedConditions.urlContains(urlContains));
+				log.debug("   waitForUrlChange(" + webDriver.getCurrentUrl() + "): " + timer.getTime());
 	
-				// error
+			// error
 			} catch (TimeoutException ex) {
-				log.error("waitForUrlChange(1): TIMEOUT waiting for URL to contain '" + urlContains + "' [" + timer.getTime() / 1000 + "s]");
+				log.error("waitForUrlChange(): TIMEOUT waiting for URL to contain '" + urlContains + "' [" + timer.getTime() / 1000 + "s]");
 				Assert.fail(ex.getMessage());
-				
-			// failed to determine load status - try the manual algorithm
-			} catch (WebDriverException ex) {
-
-				// wait for target element value
-				while (!webDriver.getCurrentUrl().contains(urlContains) && (timer.getTime()<timeout.toMillis())) {
-					sleep(polling.toMillis());
-				}
-				if (timer.getTime()>=timeout.toMillis()) {
-					// error
-					log.error("waitForUrlChange(2): TIMEOUT waiting for URL to contain '" + urlContains + "' [" + timer.getTime() / 1000 + "s]");
-					Assert.fail(ex.getMessage());
-				}
 			} catch (Exception ex) {
-				// error
-				log.error("waitForUrlChange(3): ERROR waiting for URL to contain '" + urlContains + "'");
+				log.error("waitForUrlChange(): ERROR waiting for URL to contain '" + urlContains + "'");
 				Assert.fail(ex.getMessage());
 			}
 		}
@@ -891,7 +864,7 @@ public class WebUI {
 	}
 	
 	public static void close() {
-		UiSteps.browserTabs.values().remove(getWindowHandle());
+		Steps.browserTabs.values().remove(getWindowHandle());
 		closeWindow();
 		getWindowHandle();
 	}

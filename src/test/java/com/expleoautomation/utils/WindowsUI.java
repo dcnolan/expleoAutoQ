@@ -8,25 +8,18 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.List;
-
 import org.apache.commons.lang.time.StopWatch;
 import org.junit.Assert;
 import org.junit.Test;
-
 import lombok.extern.log4j.Log4j2;
 import mmarquee.automation.controls.Application;
 import mmarquee.automation.controls.AutomationBase;
 import mmarquee.automation.controls.Button;
 import mmarquee.automation.AutomationException;
-import mmarquee.automation.AutomationTreeWalker;
-import mmarquee.automation.Element;
 import mmarquee.automation.UIAutomation;
-import mmarquee.automation.controls.ElementBuilder;
 import mmarquee.automation.controls.Hyperlink;
 import mmarquee.automation.controls.ImplementsClick;
-import mmarquee.automation.controls.MainMenu;
 import mmarquee.automation.controls.MenuItem;
 import mmarquee.automation.controls.Panel;
 import mmarquee.automation.controls.Search;
@@ -34,8 +27,6 @@ import mmarquee.automation.controls.SystemMenu;
 import mmarquee.automation.controls.TextBox;
 import mmarquee.automation.controls.Window;
 import mmarquee.automation.pattern.PatternNotFoundException;
-import mmarquee.uiautomation.IUIAutomationElement;
-import mmarquee.uiautomation.WindowVisualState;
 
 @Log4j2
 public class WindowsUI {

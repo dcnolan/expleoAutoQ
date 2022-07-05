@@ -358,7 +358,15 @@ public class DatabaseUtils {
 	
 
 
-
+	public static void findMatchingRecords(String sql, int expectedRowCount) {
+		if (sql.isBlank()) {
+			Assert.fail("findMatchingRecords(): SQL parameter is empty");
+		}
+		int rowCount = select(sql);
+		if (rowCount != expectedRowCount) {
+			Assert.assertEquals("findMatchingRecords(): ", expectedRowCount, rowCount);	
+		}
+	}
 	
 	private static boolean isTimeout(StopWatch timeout) {
 		return timeout.getTime() > 60 * 1000 * 2; // 5s

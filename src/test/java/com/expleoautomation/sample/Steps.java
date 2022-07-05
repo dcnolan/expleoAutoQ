@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Assert;
-import com.expleoautomation.utils.ServiceLayerUtils;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
+
+import com.expleoautomation.utils.DatabaseUtils;
+
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -89,7 +89,7 @@ public class Steps {
 		
 		Order order = new Order();
 		order.items.add(item);
-		order.put();
+		order.post();
 		
 
 		properties.put("Order", order.toJson()); // serialize class and store as json
@@ -107,7 +107,7 @@ public class Steps {
 		
 		Order order = new Order();
 		order.items.add(item);
-		order.put();
+		order.post();
 		
 
 		properties.put("Order", order.toJson()); // serialize class and store as json
@@ -125,7 +125,7 @@ public class Steps {
 		
 		Order order = new Order();
 		order.items.add(item);
-		order.put();
+		order.post();
 		
 
 		properties.put("Order", order.toJson()); // serialize class and store as json
@@ -140,9 +140,20 @@ public class Steps {
 		// generate GLFEED file
 		CsvFile myFile = new CsvFile("blah", "123.45");
 		String filePath = myFile.toTempFile("CSV");
-
-		
-		
-
 	}
+	
+
+	@And("I can match these parameters with a record in the database")
+	public void I_can_match_these_parameters_with_a_record_in_the_database() {
+		DatabaseUtils.findMatchingRecords(properties.get("SQL"), 1);
+	}
+	
+
+
+	@Given("I can query the database")
+	public void i_can_query_the_database() {
+	    String sql = "SELECT * FROM [Sheet1$]";
+	    DatabaseUtils.select(sql, true);
+	}
+
 }
