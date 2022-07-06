@@ -17,7 +17,11 @@ public class Encryption {
 	  }
 	 
 	  public static String decrypt(String strToDecrypt) {
-	      return new String(Base64.getDecoder().decode(strToDecrypt));
+		  if (strToDecrypt.isEmpty()) {
+			  return "";
+		  } else {
+			  return new String(Base64.getDecoder().decode(strToDecrypt));
+		  }
 	  }
 
 
@@ -29,7 +33,7 @@ public class Encryption {
 	public void testEncryptionDecryption()
 	{
 
-		test("welcome1");
+		test("password");
 		
 
 

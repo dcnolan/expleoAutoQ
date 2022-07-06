@@ -35,7 +35,7 @@ public class ResourceMap {
 		
 	public static String getXlsWorkbook(String reference) {
 		// identify client
-		if (reference.startsWith("item")) {
+		if (reference.startsWith("employee")) {
 			client = "Sample";
 		}
 		
@@ -96,10 +96,16 @@ public class ResourceMap {
 		}
 		return name;
 	}
+	
+	
+	
+	
 	private static Map<String, String> xlsWorksheetMapForApi = new HashMap<String, String>() {
 		{
 			// sample
-			put("Sample¬Item", "Sample.Items!B4:B7");
+			put("Sample¬Employee", "Sample.Employees!B4:B6");
+
+			
 			
 			
 			
@@ -147,21 +153,20 @@ public class ResourceMap {
 	// data scraped from apis-ITRGI580-20211203.xls
 	private static Map<String, String> tableToResourceMap = new HashMap<String, String>() {
 	{
-			put("system/compositeapi", "0");
-			put("item", "LIST_OF_ITEMS");
-			put("order", "MY_ORDERS");
+		put("employees", "LIST_EMPLOYEES");
+		put("create", "LIST_EMPLOYEES");
 			
 		}
 	};
 
 	public static Map<String, String> jsonToColumnMap = new HashMap<String, String>() {
 		{
-			put("LIST_OF_ITEMS.itemId",		"LIST_OF_ITEMS.ID");
-			put("LIST_OF_ITEMS.name",		"LIST_OF_ITEMS.NAME");
-			put("LIST_OF_ITEMS.price",		"LIST_OF_ITEMS.PRICE");
-			put("LIST_OF_ITEMS.description",	"LIST_OF_ITEMS.DESCRIPTION");
-			put("MY_ORDERS.orderId", 		"MY_ORDERS.ID");
-
+			put("LIST_EMPLOYEES.id",				"LIST_EMPLOYEES.ID");
+			put("LIST_EMPLOYEES.employee_name",		"LIST_EMPLOYEES.NAME");
+			put("LIST_EMPLOYEES.employee_salary",	"LIST_EMPLOYEES.SALARY");
+			put("LIST_EMPLOYEES.employee_age",		"LIST_EMPLOYEES.AGE");
+			put("LIST_EMPLOYEES.profile_image", 	"LIST_EMPLOYEES.PROFILE_PIC");
+		    
 
 		}
 	};

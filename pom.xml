@@ -232,7 +232,8 @@
 			        <reportVersion>${allure.maven.version}</reportVersion>
        				<installDirectory>${project.build.directory}</installDirectory>
         			<allureDownloadUrl>
-           				https://repository.ntrs.com:8444/nexus/content/repositories/central/io/qameta/allure/allure-commandline/2.10.0/allure-commandline-2.10.0.zip
+           				<!--  https://repository.ntrs.com:8444/nexus/content/repositories/central/io/qameta/allure/allure-commandline/2.10.0/allure-commandline-2.10.0.zip  -->
+           				https://repo1.maven.org/maven2/io/qameta/allure/allure-commandline/2.10.0/allure-commandline-2.10.0.zip
        				</allureDownloadUrl>
    				</configuration>
 			</plugin>

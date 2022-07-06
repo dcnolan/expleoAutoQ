@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import com.expleoautomation.commons.Behaviour;
 import com.expleoautomation.commons.ConstantsProvider;
 import com.expleoautomation.commons.TestDataHolder;
-import com.expleoautomation.utils.ApiUtils.MyResponse.Detail;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.restassured.RestAssured;
@@ -162,33 +162,22 @@ public class ApiUtils {
 		}
 		
 		// response
-		String responseString = response.asPrettyString().replace(TestDataHolder.getTestDataRecord(TestDataHolder.ACCESS_TOKEN), "*************");
+		String responseString = response.asPrettyString();
+		// hide access token
+		String token = TestDataHolder.getTestDataRecord(TestDataHolder.ACCESS_TOKEN);
+		if (!token.isEmpty()) {
+			responseString = responseString.replace(token, "*************");
+		}
 		log.debug(responseString);
 		if (StringUtils.isJson(responseString)) {
 			MyResponse responseObj = new ApiUtils().new MyResponse().fromJsonString(responseString);
-			// success
-			if (responseObj.header.status.message.equals("SUCCESS"))
+			// success / error
+			if (!responseObj.status.toUpperCase().equals("SUCCESS"))
 			{
-				TestDataHolder.addTestDataRecord(TestDataHolder.REQUEST_BODY, body, true, false);
-				TestDataHolder.addTestDataRecord(TestDataHolder.RESPONSE, response.asString(), true, false);
-				TestDataHolder.addTestDataRecord(TestDataHolder.RESPONSE_STATUS, response.statusLine(), true, false);
-				TestDataHolder.addTestDataRecord(TestDataHolder.RESPONSE_STATUS_CODE, String.valueOf(response.statusCode()), true, false);
-			
-			// JSON error from API
-			} else {		
-			
+						
 				StringBuilder errorMessage = new StringBuilder("Failed to execute " + action.toUpperCase() + " call on API " + resource).append(System.lineSeparator());
 				errorMessage.append(response.statusLine()).append(System.lineSeparator());
-				errorMessage.append(responseObj.header.status.message).append(System.lineSeparator());
-				errorMessage.append(responseObj.header.status.description).append(System.lineSeparator());
-				for(Detail detail : responseObj.header.status.details)
-				{
-					if (detail.type.toUpperCase().equals("ERROR"))
-					{
-						errorMessage.append(detail.message).append(System.lineSeparator());
-					}
-				}
-				TestDataHolder.addTestDataRecord(TestDataHolder.ERROR_MESSAGE, errorMessage.toString(), true, false);
+				errorMessage.append(responseObj.message).append(System.lineSeparator());
 				
 				log.error(errorMessage.toString());
 				if (Behaviour.assertFailure) {
@@ -203,9 +192,7 @@ public class ApiUtils {
 			StringBuilder errorMessage = new StringBuilder("Failed to execute " + action.toUpperCase() + " call on API " + resource).append(System.lineSeparator());
 			errorMessage.append(response.statusLine()).append(System.lineSeparator());
 			errorMessage.append(xmlResponse.getElementsByTagName("title").item(0).getTextContent().trim()).append(System.lineSeparator());
-			errorMessage.append(xmlResponse.getElementsByTagName("p").item(0).getTextContent().trim()).append(System.lineSeparator());
-			TestDataHolder.addTestDataRecord(TestDataHolder.ERROR_MESSAGE, errorMessage.toString(), true, false);
-
+			
 			log.error(errorMessage.toString());
 			if (Behaviour.assertFailure) {
 				Assert.fail(errorMessage.toString());
@@ -306,6 +293,19 @@ public class ApiUtils {
 	}
 	
 
+	public class MyResponse {
+
+		public MyResponse fromJsonString(String json) {
+			Gson gson = new GsonBuilder().create();
+			return gson.fromJson(json, this.getClass());
+		}
+
+	
+	    public String status;
+	    public String message;
+	}
+
+	/*
 
 	public class MyResponse {
 
@@ -362,7 +362,7 @@ public class ApiUtils {
 			public String token;
 		}
 
-		/*
+		*
 		 * public class Record { public String recordId;
 		 * 
 		 * // various stuff here, recordId is all we want - to be able to remove the
@@ -371,10 +371,11 @@ public class ApiUtils {
 		 * }
 		 * 
 		 * public class Body { public ArrayList<Record> records; }
-		 */
+		 *
 
 		public Header header;
 		//public Body body;
 	}
+*/
 
 }

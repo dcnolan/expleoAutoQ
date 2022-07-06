@@ -197,26 +197,13 @@ class ApiBase extends reflectionBase {
 		// check sucess/failure
 		JSONObject jsonObj = new JSONObject(responseData);
 		if (jsonObj == null) { return; };
-		JSONObject jsonHeader = jsonObj.getJSONObject("header");
-		if (jsonHeader == null) { return; };
-		JSONObject jsonStatus = jsonHeader.getJSONObject("status");
-		if (jsonStatus == null) { return; };
-		if (jsonStatus.getString("message").equals("ERROR")) { return; };
+		if (jsonObj.getString("status").equals("ERROR")) { return; };
 		
 		// get json body
-		jsonObj = jsonObj.getJSONObject("body");
+		jsonObj = jsonObj.getJSONObject("data");
 
 		// extract json string
 		String json = jsonObj.toString();
-
-		// if this object have a list property ...
-		String listPropertyName = getListProperty();
-		if (listPropertyName != null) {
-			// replace generic RECORDS with specific name of list property
-			json = json.replace("records", listPropertyName);
-		} else {
-			json = jsonObj.getJSONArray("records").get(0).toString();
-		}
 
 		// set property values
 		fromJson(json);
@@ -246,6 +233,7 @@ class ApiBase extends reflectionBase {
 		
 		// populate this object
 		for (Map.Entry<String, String> jsonProperty : jsonData.entrySet()) {
+			// see webBase.setPropertyByName() for matching algorithm
 			setPropertyByName(jsonProperty.getKey(), jsonProperty.getValue());
 		}
 	}
@@ -258,7 +246,8 @@ class ApiBase extends reflectionBase {
 	public void fromDataTable(io.cucumber.datatable.DataTable dataTable, Object obj) {
 		log.info(System.lineSeparator());
 		log.info("fromDataTable()");
-
+		
+		
 		// convert to a key-value pair map/list
 		Map<String, String> map = null;
 		try {
